@@ -45,6 +45,7 @@ var radiansToDistance = require('@turf/helpers').radiansToDistance;
  * //=distance
  */
 module.exports = function (from, to, units) {
+    if (units){
     var degrees2radians = Math.PI / 180;
     var coordinates1 = getCoord(from);
     var coordinates2 = getCoord(to);
@@ -57,4 +58,8 @@ module.exports = function (from, to, units) {
           Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
 
     return radiansToDistance(2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)), units);
+    }else{
+        return Math.atan2(Math.pow(coordinates2[1] - coordinates1[1],2)+
+                          Math.pow(coordinates2[0] - coordinates1[0],2));
+    }
 };
